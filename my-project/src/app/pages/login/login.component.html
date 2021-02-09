@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+
+  <link rel="stylesheet" type="text/css" href="login.component.css" />
+  <script type="text/javascript" src="login.js"></script>
+</head>
+
+<body>
+  <div id="logo1">
+    <p id="image_logo1"><img src="https://www.fastcase.com/wp-content/themes/fastcase/dist/img/fastcase_logo.svg"
+        width="180" height="60"></p>
+  </div>
+  <div id="login_frame">
+
+    <p><label class="label_head"
+        style="font-family: Arial, Helvetica, sans-serif; color:rgb(0, 0, 0); font-size: 25px;font-style:inherit;">Welcome
+        LSM User!</label></p>
+    <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+      <nz-form-item>
+        <nz-form-control nzErrorTip="The input is not valid email!">
+          <nz-input-group nzPrefixIcon="user">
+            <input type="text" nz-input formControlName="email" placeholder="Email" class="text_field"
+              [disabled]="isDisabled" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Please input your Password!">
+          <nz-input-group nzPrefixIcon="lock">
+            <input type="password" nz-input formControlName="password" placeholder="Password" class="text_field"
+              [disabled]="isDisabled" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <button nz-button class="login-form-button login-form-margin btn_login" [nzType]="'primary'"
+        [nzLoading]="loginLoading">SIGN IN</button>
+      <div>
+        <a id="agree_ment">By clicking here, you agree to our </a>
+        <a id="agree" href="agreement.html">Customer Agreement</a>
+      </div>
+      <div>
+        <span style="top:80px;position: relative;font-size: 15px;">Don't have an account? </span>
+        <a id="forget_pwd" routerLink="/register">Sign Up</a>
+      </div>
+    </form>
+  </div>
+
+
+</body>
+
+</html>

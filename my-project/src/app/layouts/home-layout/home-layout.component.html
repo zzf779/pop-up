@@ -1,0 +1,81 @@
+<nz-layout class="body-layout">
+  <nz-header>
+    <div class="sidebar-logo">
+      <div nz-row>
+        <div nz-col nzFlex="256px">
+          <a href="https://www.fastcase.com" target="_blank">
+            <img src="https://www.fastcase.com/wp-content/themes/fastcase/dist/img/fastcase_logo.svg" alt="logo">
+            <h1>{{userName}}</h1>
+          </a>
+        </div>
+        <div nz-col nzFlex="auto" style="text-align:center">
+          <h1>*Industury* Legal News & Analytics</h1>
+        </div>
+        <div nz-col nzFlex="256px" class="header-notice text-right">
+          <nz-badge nzDot><i nz-icon nzType="bell"></i></nz-badge>
+          <nz-avatar [nzSize]="46" nzIcon="user" nz-dropdown [nzDropdownMenu]="menu" style="cursor: pointer;"></nz-avatar>
+          <nz-dropdown-menu #menu="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item (click)="logOut()"><i nz-icon nzType="logout" nzTheme="outline"></i>Logout</li>
+            </ul>
+          </nz-dropdown-menu>
+        </div>
+      </div>
+    </div>
+  </nz-header>
+  <nz-layout class="inner-layout">
+    <nz-sider nzWidth="256px" nzCollapsible nzTheme="light">
+      <ul nz-menu nzMode="inline">
+        <li nz-menu-item (click)="homePart()"> 
+          <i nz-icon nzType="appstore"></i>
+          <span>Home</span>
+        </li>
+        <li nz-submenu nzOpen nzTitle="Tools" nzIcon="tool">
+          <ul>
+            <li nz-menu-item nzMatchRouter (click)="searchPart()">
+              <i nz-icon nzType="aim" nzTheme="outline"></i>
+              <a>Search</a>
+            </li>
+            <li nz-menu-item nzMatchRouter>
+              <i nz-icon nzType="bar-chart" nzTheme="outline"></i>
+              <a>Charts</a>
+            </li>
+            <li nz-menu-item nzMatchRouter>
+              <i nz-icon nzType="line-chart" nzTheme="outline"></i>
+              <a>Analysis</a>
+            </li>
+            <li nz-menu-item nzMatchRouter>
+              <i nz-icon nzType="calendar" nzTheme="outline"></i>
+              <a>Events</a>
+            </li>
+          </ul>
+        </li>
+        <li nz-submenu nzOpen nzTitle="Options" nzIcon="sliders">
+          <ul>
+            <li nz-menu-item nzMatchRouter>
+              <i nz-icon nzType="contacts" nzTheme="outline"></i>
+              <a>Option1</a>
+            </li>
+            <li nz-menu-item nzMatchRouter>
+              <i nz-icon nzType="aim" nzTheme="outline"></i>
+              <a routerLink="/welcome">Option2</a>
+            </li>
+          </ul>
+        </li>
+        <li nz-menu-item>
+          <i nz-icon nzType="mail"></i>
+          <span>Subscriptions</span>
+        </li>
+        <li nz-menu-item>
+          <i nz-icon nzType="setting"></i>
+          <span>Settings</span>
+        </li>
+      </ul>
+    </nz-sider>
+    <nz-content>
+      <div class="inner-content" >
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

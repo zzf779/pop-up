@@ -1,0 +1,158 @@
+<nz-affix style="position: absolute; bottom: 200px;right: 20px;z-index: 100;">
+  <button nz-button (click)="drawerOpen()"><i nz-icon nzType="caret-right" nzTheme="outline"></i></button>
+</nz-affix>
+<nz-drawer [nzClosable]="false" [nzVisible]="visible" nzPlacement="right" nzWidth="1000px" (nzOnClose)="drawerClose()">
+  <div nz-row [nzGutter]="16">
+    <div nz-col nzSpan="12">
+      <h2 class="m-t-b_20">Line Chart</h2>
+      <div id="lineChart1"></div>
+    </div>
+    <div nz-col nzSpan="12">
+      <h2 class="m-t-b_20">Bar Chart</h2>
+      <div id="barChart1"></div>
+    </div>
+    <div nz-col nzSpan="12">
+      <h2 class="m-t-b_20">Line Chart</h2>
+      <div id="lineChart2"></div>
+    </div>
+    <div nz-col nzSpan="12">
+      <h2 class="m-t-b_20">Bar Chart</h2>
+      <div id="barChart2"></div>
+    </div>
+  </div>
+</nz-drawer>
+<!-- <nz-skeleton [nzAvatar]="true" [nzParagraph]="{ rows: 4 }"></nz-skeleton> -->
+<nz-skeleton [nzLoading]="skeletonLoading" [nzAvatar]="true" [nzActive]="true">
+  <div nz-row [nzGutter]="16" class="p-l-r-20">
+    <div nz-col nzXs="24" nzLg="10" nzXl="9" nzXXl="6">
+      <img height="360" class='news-img' alt="logo"
+        src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png" />
+    </div>
+    <div nz-col nzXs="24" nzLg="14" nzXl="15" nzXXl="18">
+      <nz-card style="width: 100%; height: 360px;">
+        <div nz-row class="news-list_title">
+          <div nz-col nzXs="24" nzLg="14" nzXl="15" nzXXl="18">
+            <h2>{{articleOne.title}}</h2>
+            <div style="font-size: 18px;">Industry</div>
+            <div class="news-d-a">
+              <span>Date: {{articleOne.date |date:'yyyy-MM-dd HH:mm'}}</span>
+              <span>Author: {{articleOne.author}}</span>
+            </div>
+          </div>
+          <div nz-col nzXs="24" nzLg="10" nzXl="9" nzXXl="6">
+            <button nz-button nzSize="large" nzType="primary"><a [href]=articleOne.link>VIEW ANALYTICS</a></button>
+          </div>
+        </div>
+        <div class="news-list_centent" [innerHtml]=articleOne.summary></div>
+      </nz-card>
+    </div>
+  </div>
+</nz-skeleton>
+<div class="search">
+  <input type="text" style="font-family:Arial, Helvetica, sans-serif;" placeholder="Start typing..." name="" id=""
+    [(ngModel)]="titleValue" />
+  <button (click)="searchTitle()"><i>Search</i></button>
+  <!-- <router-outlet></router-outlet> -->
+  <!-- <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixButton">
+    <input type="text" nz-input placeholder="input search text" />
+  </nz-input-group>
+  <ng-template #suffixButton>
+    <button nz-button nzType="primary" nzSize="large" nzSearch>Search</button>
+  </ng-template> -->
+</div>
+<div nz-row>
+  <div nz-col nzXs="24" nzLg="7" nzXl="9" nzXXl="6">
+    <div>
+      Filters select
+    </div>
+    <nz-select nzBorderless=true nzShowSearch nzAllowClear [(ngModel)]="sourceValue" nzPlaceHolder="Please Select" nzOptionOverflowSize=6
+      class="option-select" (ngModelChange)="searchSource()" [nzDropdownRender]="renderTemplate">
+      <nz-option *ngFor="let source of sourceList" [(nzValue)]="source._id" [(nzLabel)]="source.title"></nz-option>
+    </nz-select>
+    <ng-template #renderTemplate>
+      <nz-spin *ngIf="selectedLoading"></nz-spin>
+    </ng-template>
+  </div>
+  <div nz-col nzXs="24" nzLg="17" nzXl="15" nzXXl="18" class="range-tag">
+    <nz-tag nzMode="closeable">Tag1</nz-tag>
+    <nz-tag nzMode="closeable">Tag2</nz-tag>
+    <nz-tag nzMode="closeable">DocType1</nz-tag>
+    <nz-tag nzMode="closeable">DocType2</nz-tag>
+    <nz-tag nzMode="closeable" class="date-Range-tag">
+      <span style="width: 90px;display: inline-block;">Date Range <span>MMDDYY</span></span>
+    </nz-tag>
+  </div>
+</div>
+<div>
+  <div nz-row class="p-l-r-20">
+    <div nz-col nzSpan="15">
+      <h2 style="line-height: 46px;">Searched Documents about JUUL LABS, INC. v. 4X PODS et al </h2>
+    </div>
+    <div nz-col nzSpan="9" class="text-right">
+      <button nz-button nzSize="large" nzType="primary">VIEW ANALYTICS</button>
+    </div>
+  </div>
+  <nz-table #rowSelectionTable [nzShowSizeChanger]="false" [nzHideOnSinglePage]="true" [nzData]="listOfData"
+    nzTableLayout="fixed" [nzFrontPagination]="false" [nzShowPagination]="true" [nzLoading]="tableLoading"
+    [nzTotal]="total" (nzPageIndexChange)="getArticles($event - 1)" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex + 1"
+   >
+    <thead>
+      <tr>
+        <th nzWidth="50px" [(nzChecked)]="checked" [nzIndeterminate]="indeterminate"
+          (nzCheckedChange)="onAllChecked($event)"></th>
+        <th nzWidth="142px">Filing Date</th>
+        <th>#</th>
+        <!-- <th nzWidth="180px">Party Name</th> -->
+        <th nzWidth="25%">Content</th>
+        <th nzWidth="100px">Favorite</th>
+        <th nzWidth="220px">Source</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of rowSelectionTable.data">
+        <td [nzChecked]="setOfCheckedId.has(data._id)" (nzCheckedChange)="onItemChecked(data._id, $event)"></td>
+        <td>{{ data.created | date:'yyyy-MM-dd HH:mm' }}</td>
+        
+        <td nzEllipsis=true>{{ data.category }}</td>
+        <!-- <td nzEllipsis=true>{{ data.author }}</td> -->
+        <td nzEllipsis=true><a [href]=data.link>{{ data.title }}</a></td>
+        <td (click)="clickSwitch(data._id,data.favorite)" style="cursor: pointer;">
+          <ng-container *ngIf="data.favorite; else elseTemplate">
+            <i nz-icon style="color: #fadb14;">
+              <svg viewBox="64 64 896 896" focusable="false" fill="currentColor" width="1em" height="1em"
+                data-icon="star" aria-hidden="true">
+                <path
+                  d="M908.1 353.1l-253.9-36.9L540.7 86.1c-3.1-6.3-8.2-11.4-14.5-14.5-15.8-7.8-35-1.3-42.9 14.5L369.8 316.2l-253.9 36.9c-7 1-13.4 4.3-18.3 9.3a32.05 32.05 0 00.6 45.3l183.7 179.1-43.4 252.9a31.95 31.95 0 0046.4 33.7L512 754l227.1 119.4c6.2 3.3 13.4 4.4 20.3 3.2 17.4-3 29.1-19.5 26.1-36.9l-43.4-252.9 183.7-179.1c5-4.9 8.3-11.3 9.3-18.3 2.7-17.5-9.5-33.7-27-36.3z">
+                </path>
+              </svg>
+            </i>
+          </ng-container>
+          <ng-template #elseTemplate>
+            <i nz-icon nzType="star" nzTheme="outline"></i>
+          </ng-template>
+
+        </td>
+        <td nzEllipsis=true>
+          <!-- <span [ngSwitch]="">
+            <span *ngSwitchCase="success">
+              <nz-badge nzStatus="success"></nz-badge>
+              <nz-badge nzStatus="error"></nz-badge>
+              <nz-badge nzStatus="default"></nz-badge>
+              <nz-badge nzStatus="processing"></nz-badge>
+              <nz-badge nzStatus="warning"></nz-badge>
+            </span>
+            <span *ngSwitchCase="false">
+              <nz-badge nzColor="blue"></nz-badge>
+            </span>
+            <span *ngSwitchDefault>
+              <nz-badge nzColor="blue"></nz-badge>
+            </span>
+          </span> -->
+          <!-- <nz-badge nzColor="blue"></nz-badge> -->
+          <!-- {{ data.source }} -->
+          Docket Alarm
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
