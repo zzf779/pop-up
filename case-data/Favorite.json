@@ -1,0 +1,19 @@
+[{
+  "_id": {
+    "$oid": "5ff2a7780863985a50f48f5c"
+  },
+  "userId": "5ff2a74f0863985a50f48f5b",
+  "articleId": "5fdc0f6967bb9c0e98562ea3"
+},{
+  "_id": {
+    "$oid": "5ff37e270863985a50f48f5e"
+  },
+  "userId": "5ff37e060863985a50f48f5d",
+  "articleId": "5fdc0f6967bb9c0e98562ea3"
+},{
+  "_id": {
+    "$oid": "5ff37e2e0863985a50f48f5f"
+  },
+  "userId": "5ff37e060863985a50f48f5d",
+  "articleId": "5fdc0f6967bb9c0e98562ea4"
+}]
